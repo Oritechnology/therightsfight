@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
 
-return User;
+return user;
 
   user.associate = (models) => {
     user.hasMany(models.questions, {
