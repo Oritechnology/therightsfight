@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) =>
     queryInterface.createTable('questions', {
@@ -25,7 +23,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      userId: {
+      todoId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {

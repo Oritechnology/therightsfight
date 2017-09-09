@@ -1,4 +1,5 @@
 const user = require('../models').user;
+const questions = require('../models').questions
 
 module.exports = {
   create(req, res) {
@@ -16,9 +17,13 @@ module.exports = {
   return user
     .findAll({
       include: [{
-        model: userItem,
-        as: 'userItems',
+        model: Questions,
+        as: 'questions',
       }],
+      order: [
+        ['createdAt', 'DESC'],
+        [{ model: Questions, as: 'questions'}, 'createdAt', 'ASC'],
+      ],
     })
     .then(user => res.status(200).send(user))
     .catch(error => res.status(400).send(error));
@@ -28,14 +33,14 @@ retrieve(req, res) {
   return user
     .findById(req.params.userId, {
       include: [{
-        model: userItem,
-        as: 'userItems',
+        model: Questions,
+        as: 'questions',
       }],
     })
     .then(user => {
       if (!user) {
         return res.status(404).send({
-          message: 'user Not Found',
+          message: 'User Not Found',
         });
       }
       return res.status(200).send(user);
@@ -47,8 +52,8 @@ update(req, res) {
   return user
     .findById(req.params.userId, {
       include: [{
-        model: userItem,
-        as: 'userItems',
+        model: Questions,
+        as: 'questions',
       }],
     })
     .then(user => {
@@ -81,7 +86,7 @@ destroy(req, res) {
         .then(() => res.status(204).send())
         .catch(error => res.status(400).send(error));
     })
-    .catch(error => res.status(400).send(error));
+    .catch((error) => res.status(400).send(error));
 },
 
 

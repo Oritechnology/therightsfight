@@ -12,7 +12,7 @@ app.use(session({secret: 'keyboard cat', resave: true, saveUninitialized:true}))
 app.use(passport.initialize());
 app.use(passport.session());
 
-// require('./server/routes')(app);
+require('./server/routes')(app);
 app.use('/api', require('./server/routes'))
 
 app.get('*', (req, res) => res.status(200).send({
