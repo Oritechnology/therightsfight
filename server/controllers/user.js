@@ -1,9 +1,9 @@
-const user = require('../models').user;
+// const {users, questions}  = require('../models');
 const questions = require('../models').questions
 
 module.exports = {
   create(req, res) {
-    return user
+    return User
       .create({
         title: req.body.title,
       })
@@ -14,7 +14,7 @@ module.exports = {
   },
 
   list(req, res) {
-  return user
+  return User
     .findAll({
       include: [{
         model: Questions,
@@ -30,7 +30,7 @@ module.exports = {
 },
 
 retrieve(req, res) {
-  return user
+  return User
     .findById(req.params.userId, {
       include: [{
         model: Questions,
@@ -49,7 +49,7 @@ retrieve(req, res) {
 },
 
 update(req, res) {
-  return user
+  return User
     .findById(req.params.userId, {
       include: [{
         model: Questions,
@@ -73,7 +73,7 @@ update(req, res) {
 },
 
 destroy(req, res) {
-  return user
+  return User
     .findById(req.params.userId)
     .then(user => {
       if (!user) {
@@ -81,7 +81,7 @@ destroy(req, res) {
           message: 'User Not Found',
         });
       }
-      return user
+      return User
         .destroy()
         .then(() => res.status(204).send())
         .catch(error => res.status(400).send(error));
