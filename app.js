@@ -5,6 +5,7 @@ const app = express();
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
+const firebase = require('firebase');
 const port = parseInt(process.env.Port || 8080)
 
 app.use(logger('dev'));
