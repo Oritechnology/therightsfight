@@ -1,12 +1,22 @@
 // const {users, questions}  = require('../models');
 const questions = require('../models').questions
+const firebase = require('../../firebase')
+  console.log(firebase);
 
 module.exports = {
   create(req, res) {
-    return User
-      .create(req.body)
-      .then(user => res.status(201).json(user))
-      .catch(error => res.status(401).send(error));
+    const {email, password} = req.body
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((user) => {
+      console.log("USER", user)
+      return res.status(200).json(user)
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      return res.status(400).send(errorMessage)
+    });
   },
 
   list(req, res) {
