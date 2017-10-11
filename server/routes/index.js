@@ -1,14 +1,23 @@
+'use strict'
+
 const userController = require('../controllers').user;
-const passport = require('passport')
-const api = require('express').Router()
+const questionsController = require('../controllers').questions;
 
-module.exports = api
-  api.get('/api', (req, res) => res.status(200).send({
-    message: 'Welcome to the user API!',
-  }));
+module.exports = require('express').Router()
+  .get('/', (req, res) => res.status(200).send({
+    message: 'Welcome to the User API!',
+  }))
 
-  api.post('/api/user/:userId/items', userController.create);
-  api.get('/api/user/:userId', userController.list);
-  api.put('/api/user/:userId', userController.update);
-  api.delete('/api/user/:userId', userController.destroy);
-};
+  .post('/users', userController.create)
+  .get('/users', userController.list)
+  .get('/users/:userId', userController.retrieve)
+  .put('/users/:userId', userController.update)
+  .delete('/users/:userId', userController.destroy)
+  .post('/users/:userId/items', questionsController.create)
+  // .put('/user/:userId/items/:questionsId', questionsController.update)
+  // .delete(
+  //   '/user/:userId/items/:questionsId', questionsController.destroy
+  // )
+  .all('/user/:userId/items', (req, res) => res.status(405).send({
+    message: 'Method Not Allowed',
+  }))

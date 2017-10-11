@@ -7,7 +7,7 @@ module.exports = {
         content: req.body.content,
         userId: req.params.userId,
       })
-      .then(userItem => res.status(201).send(userItem))
+      .then(questions => res.status(201).send(questions))
       .catch(error => res.status(400).send(error));
   },
 };
